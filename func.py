@@ -27,4 +27,4 @@ def compare_files(file1, file2):
     diff = difflib.SequenceMatcher(None, html1, html2)
     similarity = diff.ratio()
 
-    return similarity/100
+    return similarity * 100
