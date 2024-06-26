@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Результат проверки плагиата</title>
+</head>
+<body>
+    <h1>Результат проверки плагиата</h1>
+    {% if error_message %}
+        <p>{{ error_message }}</p>
+    {% else %}
+        <p>Схожесть текстов: {{ similarity }}%</p>
+        {% if similarity > 70 %}
+            <img src="image4.jpg" alt="Плагиат">
+            <p>Высокая степень схожести!</p>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
