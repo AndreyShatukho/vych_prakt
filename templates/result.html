@@ -13,6 +13,17 @@
             <img src="image4.jpg" alt="Плагиат">
             <p>Высокая степень схожести!</p>
         {% endif %}
+
+        {% if similar_lines %}
+            <h2>Похожие строки кода:</h2>
+            <ul>
+                {% for line1, line2 in similar_lines %}
+                    <li>{{ line1 }}</li>
+                    <li>{{ line2 }}</li>
+                    <br>
+                {% endfor %}
+            </ul>
+        {% endif %}
     {% endif %}
 </body>
 </html>
