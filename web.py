@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import Levenshtein
 import re
 
-def normalize_code(code):
+def normalize(code):
     normalized_code = re.sub(r'\b[a-zA-Z_]\w*\b', 'VAR_NAME', code)
     return normalized_code
 
@@ -36,12 +36,12 @@ def check_plagiarism():
     code1 = file1.read().decode('utf-8')
     code2 = file2.read().decode('utf-8')
 
-    normalized_code1 = normalize_code(code1)
-    normalized_code2 = normalize_code(code2)
+    normalized1 = normalize(code1)
+    normalized2 = normalize(code2)
 
-    distance = Levenshtein.distance(normalized_code1, normalized_code2)
-    similarity = (1 - (distance / max(len(normalized_code1), len(normalized_code2)))) * 100
-    similar_lines = find_similar_lines(normalized_code1, normalized_code2, code1, code2)
+    distance = Levenshtein.distance(normalized1, normalized2)
+    similarity = (1 - (distance / max(len(normalized1), len(normalized2)))) * 100
+    similar_lines = find_similar_lines(normalized1, normalized2, code1, code2)
 
     return render_template('result.html', similarity=similarity, similar_lines=similar_lines)
 
