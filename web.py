@@ -3,8 +3,11 @@ import Levenshtein
 import re
 
 def normalize(code):
-    normalized_code = re.sub(r'\b[a-zA-Z_]\w*\b', 'VAR_NAME', code)
-    return normalized_code
+    lines = code.split('\n')
+    filtered = [line for line in lines if not line.startswith('import')]
+    normalized_code = '\n'.join(filtered)
+    normalized_code = re.sub(r'\b[a-zA-Z_]\w*\b', 'VAR_NAME', normalized_code)
+    return normalized_code, filtered
 
 def find_similar_lines(code1, code2, original_code1, original_code2):
     lines1 = code1.split('\n')
@@ -12,8 +15,8 @@ def find_similar_lines(code1, code2, original_code1, original_code2):
 
     similar_lines = []
 
-    for line1, original_line1 in zip(lines1, original_code1.split('\n')):
-        for line2, original_line2 in zip(lines2, original_code2.split('\n')):
+    for line1, original_line1 in zip(lines1, original_code1):
+        for line2, original_line2 in zip(lines2, original_code2):
             stripped_line1 = line1.strip()
             stripped_line2 = line2.strip()
 
@@ -35,13 +38,12 @@ def check_plagiarism():
 
     code1 = file1.read().decode('utf-8')
     code2 = file2.read().decode('utf-8')
-
-    normalized1 = normalize(code1)
-    normalized2 = normalize(code2)
+    normalized1, normalized11 = normalize(code1)
+    normalized2, normalized21 = normalize(code2)
 
     distance = Levenshtein.distance(normalized1, normalized2)
     similarity = (1 - (distance / max(len(normalized1), len(normalized2)))) * 100
-    similar_lines = find_similar_lines(normalized1, normalized2, code1, code2)
+    similar_lines = find_similar_lines(normalized1, normalized2, normalized11, normalized21)
 
     return render_template('result.html', similarity=similarity, similar_lines=similar_lines)
 
