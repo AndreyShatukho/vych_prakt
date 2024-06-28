@@ -2,6 +2,38 @@
 <html>
 <head>
     <title>Результат проверки плагиата</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        p {
+            margin-top: 10px;
+        }
+
+        img {
+            max-width: 100%;
+            margin-top: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
 <body>
     <h1>Результат проверки плагиата</h1>
@@ -10,7 +42,7 @@
     {% else %}
         <p>Схожесть текстов: {{ similarity }}%</p>
         {% if similarity > 70 %}
-            <img src="image4.jpg" alt="Плагиат">
+            <img src="templates/image4.jpg" alt="Плагиат">
             <p>Высокая степень схожести!</p>
         {% endif %}
 
