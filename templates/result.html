@@ -40,8 +40,10 @@
     {% if error_message %}
         <p>{{ error_message }}</p>
     {% else %}
-        <p>Схожесть текстов: {{ similarity }}%</p>
-        {% if similarity > 70 %}
+        <p>Схожесть текстов (расстояние Левенштейна): {{ similarity_leven }}%</p>
+        <p>Схожесть текстов (косинусное сходство): {{ similarity_cosine }}%</p>
+
+        {% if similarity_leven > 70 or similarity_cosine > 70 %}
             <img src="templates/image4.jpg" alt="Плагиат">
             <p>Высокая степень схожести!</p>
         {% endif %}
