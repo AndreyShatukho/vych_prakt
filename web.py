@@ -14,7 +14,7 @@ def normalize(code):
     lines = code.split('\n')
     filtered = [line for line in lines if not line.startswith('import') and not line.startswith('from')]
     normalized_code = '\n'.join(filtered)
-    normalized_code = re.sub(r'\b[a-zA-Z_]\w*\b', 'VAR_NAME', normalized_code)
+    #normalized_code = re.sub(r'\b[a-zA-Z_]\w*\b', 'VAR_NAME', normalized_code)
     return normalized_code, filtered
 
 def find_similar_lines(code1, code2, original_code1, original_code2):
