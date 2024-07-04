@@ -33,6 +33,12 @@
         li {
             margin-bottom: 5px;
         }
+
+         img {
+        max-width: 20%;
+        height: auto;
+        margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -44,20 +50,26 @@
         <p>Схожесть текстов (косинусное сходство): {{ similarity_cosine }}%</p>
 
         {% if similarity_leven > 70 or similarity_cosine > 70 %}
-            <img src="templates/image4.jpg" alt="Плагиат">
+             <img src="{{ url_for('static', filename='image4.jpg') }}" />
             <p>Высокая степень схожести!</p>
         {% endif %}
 
         {% if similar_lines %}
-            <h2>Похожие строки кода:</h2>
-            <ul>
-                {% for line1, line2 in similar_lines %}
-                    <li>{{ line1 }}</li>
-                    <li>{{ line2 }}</li>
-                    <br>
-                {% endfor %}
-            </ul>
-        {% endif %}
+    <h2>Похожие строки кода:</h2>
+    <ul>
+        {% for line1, line2, line_num1, line_num2 in similar_lines %}
+            <li>
+                Строка {{ line_num1 }}:
+                <pre>{{ line1 }}</pre>
+            </li>
+            <li>
+                Строка {{ line_num2 }}:
+                <pre>{{ line2 }}</pre>
+            </li>
+            <br>
+        {% endfor %}
+    </ul>
+{% endif %}
     {% endif %}
 </body>
 </html>
